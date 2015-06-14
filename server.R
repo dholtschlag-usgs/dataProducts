@@ -18,7 +18,7 @@ shinyServer(function(input, output) {
     if (is.null(input$file1$datapath))
       return(NULL)
     
-
+    
     wordcloud(textRead(),
               min.freq=input$freq, max.words=input$max, 
               rot.per=input$rot, 
