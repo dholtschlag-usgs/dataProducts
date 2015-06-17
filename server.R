@@ -3,8 +3,9 @@ library(tm)
 library(wordcloud)
 
 shinyServer(function(input, output) {
-  textRead <- reactive({
-    readLines(input$file1$datapath, n = -1) })
+  myText <- eventReactive(input$file1$datapath, {
+    readLines(input$file1$datapath, n = -1L) 
+    })
   
   output$contents <- renderPlot({
     
@@ -17,9 +18,9 @@ shinyServer(function(input, output) {
     
     if (is.null(input$file1$datapath))
       return(NULL)
+    #readLines(input$file1$datapath, n = -1)
     
-    
-    wordcloud(textRead(),
+    wordcloud(myText(),
               min.freq=input$freq, max.words=input$max, 
               rot.per=input$rot, 
               random.order = as.logical(input$pltOrder), 
